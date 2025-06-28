@@ -11,6 +11,14 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('ricti-dockerhub')
   }
   stages {
+   stage('Install Docker CLI') {
+        steps {
+          sh '''
+            apt-get update
+            apt-get install -y docker.io
+          '''
+        }
+      }
     stage('Build') {
       steps {
         sh 'mvn --version'

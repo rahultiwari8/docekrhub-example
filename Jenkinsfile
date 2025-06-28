@@ -1,5 +1,10 @@
 pipeline {
-  agent { label 'linux' }
+  agent {
+    docker {
+      image 'maven:3.9.6-eclipse-temurin-17'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -9,6 +14,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        sh 'mvn --version'
         sh 'docker build -t ricti/dp-alpine:latest .'
       }
     }

@@ -1,8 +1,6 @@
 pipeline {
   agent {
-    docker {
-      image 'maven:3.8.1-adoptopenjdk-11'
-    }
+    dockerfile true
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
@@ -11,14 +9,6 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('ricti-dockerhub')
   }
   stages {
-   stage('Install Docker CLI') {
-        steps {
-          sh '''
-            apt-get update
-            apt-get install -y docker.io
-          '''
-        }
-      }
     stage('Build') {
       steps {
         sh 'mvn --version'

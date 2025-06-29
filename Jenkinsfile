@@ -1,42 +1,27 @@
 pipeline {
-  agent {
-          docker {
-              image 'arm64v8/openjdk'
-          }
-      }
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
+    agent {
+        docker {
+            image 'openjdk:21' // You can choose another version, like 'openjdk:17'
+        }
+    }
+    stages {
+        stage('Compile') {
+            steps {
+                sh '''
+                    echo "public class HelloWorld {" > HelloWorld.java
+                    echo "    public static void main(String[] args) {" >> HelloWorld.java
+                    echo "        System.out.println(\\"Hello from Java inside Docker!\\");" >> HelloWorld.java
+                    echo "    }" >> HelloWorld.java
+                    echo "}" >> HelloWorld.java
 
-  stages {
-    stage('Build') {
-      steps {
-      script {
-                for (int i = 1; i <= 100; i++) {
-                  echo "Iteration: ${i}"
-                }
-              }
-        echo 'mvn --version'
-        //sh 'docker build -t ricti/maven .'
-      }
+                    javac HelloWorld.java
+                '''
+            }
+        }
+        stage('Run') {
+            steps {
+                sh 'java HelloWorld'
+            }
+        }
     }
-    stage('Login') {
-      steps {
-        //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        echo 'login'
-      }
-    }
-    stage('Push') {
-      steps {
-        //sh 'docker push ricti/maven'
-        echo 'push'
-      }
-    }
-  }
-  post {
-    always {
-      //sh 'docker logout'
-        echo 'logout'
-    }
-  }
 }

@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'openjdk:21' // You can choose another version, like 'openjdk:17'
+            image 'docker:dind' // You can choose another version, like 'openjdk:17'
         }
     }
     stages {

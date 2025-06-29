@@ -1,8 +1,6 @@
 pipeline {
   agent {
-     docker {
-          image 'maven'
-        }
+     any
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))

@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn --version'
+        echo 'mvn --version'
         //sh 'docker build -t ricti/maven .'
       }
     }

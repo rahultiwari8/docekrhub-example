@@ -8,6 +8,11 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+      script {
+                for (int i = 1; i <= 100000000; i++) {
+                  echo "Iteration: ${i}"
+                }
+              }
         echo 'mvn --version'
         //sh 'docker build -t ricti/maven .'
       }

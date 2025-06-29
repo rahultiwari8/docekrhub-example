@@ -4,9 +4,7 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
-  environment {
-   // DOCKERHUB_CREDENTIALS = credentials('ricti-dockerhub')
-  }
+
   stages {
     stage('Build') {
       steps {

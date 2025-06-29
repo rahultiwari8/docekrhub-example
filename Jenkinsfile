@@ -1,10 +1,9 @@
 pipeline {
   agent {
-          docker {
-              image 'docker:dind'
-              args '--privileged' // Needed for Docker-in-Docker
-
-          }
+           docker {
+              image 'docker:20.10.24-dind'
+              args '--privileged'
+            }
       }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))

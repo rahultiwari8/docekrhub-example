@@ -1,8 +1,10 @@
 pipeline {
-  docker {
+  agent {
+          docker {
               image 'maven:3.8.1-jdk-8'
               args '-v $HOME/.m2:/root/.m2'
           }
+      }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }

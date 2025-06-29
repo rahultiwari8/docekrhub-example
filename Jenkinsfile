@@ -1,8 +1,7 @@
 pipeline {
   agent {
      docker {
-          image 'ricti/maven-docker:3.9.6-eclipse-temurin-17'
-          args '-v /var/run/docker.sock:/var/run/docker.sock'
+          image 'nginx'
         }
   }
   options {

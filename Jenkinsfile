@@ -1,7 +1,7 @@
 pipeline {
   agent {
      docker {
-          image 'sock-nginx'
+          image 'maven'
         }
   }
   options {

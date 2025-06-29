@@ -11,7 +11,7 @@ pipeline {
     stage('Build') {
       steps {
       script {
-                for (int i = 1; i <= 10000; i++) {
+                for (int i = 1; i <= 100; i++) {
                   echo "Iteration: ${i}"
                 }
               }

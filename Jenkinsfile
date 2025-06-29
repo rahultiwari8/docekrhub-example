@@ -17,17 +17,20 @@ pipeline {
     stage('Login') {
       steps {
         //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        echo 'login'
       }
     }
     stage('Push') {
       steps {
         //sh 'docker push ricti/maven'
+        echo 'push'
       }
     }
   }
   post {
     always {
       //sh 'docker logout'
+        echo 'logout'
     }
   }
 }

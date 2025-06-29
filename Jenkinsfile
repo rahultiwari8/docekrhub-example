@@ -2,6 +2,7 @@ pipeline {
   agent {
           docker {
               image 'docker:dind'
+              args '--privileged' // Needed for Docker-in-Docker
 
           }
       }

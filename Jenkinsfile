@@ -14,7 +14,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'mvn --version'
-        sh 'docker build -t ricti/dp-alpine:latest .'
+        sh 'docker build -t ricti/maven .'
       }
     }
     stage('Login') {
@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push ricti/dp-alpine:latest'
+        sh 'docker push ricti/maven'
       }
     }
   }

@@ -1,27 +1,41 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:dind' // You can choose another version, like 'openjdk:17'
-        }
-    }
-    stages {
-        stage('Compile') {
-            steps {
-                sh '''
-                    echo "public class HelloWorld {" > HelloWorld.java
-                    echo "    public static void main(String[] args) {" >> HelloWorld.java
-                    echo "        System.out.println(\\"Hello from Java inside Docker!\\");" >> HelloWorld.java
-                    echo "    }" >> HelloWorld.java
-                    echo "}" >> HelloWorld.java
+  agent {
+          docker {
+              image 'docker:dind'
 
-                    javac HelloWorld.java
-                '''
-            }
-        }
-        stage('Run') {
-            steps {
-                sh 'java HelloWorld'
-            }
-        }
+          }
+      }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+      script {
+
+              }
+        echo 'mvn --version'
+        sh 'docker build -t ricti/maven .'
+      }
     }
+    stage('Login') {
+      steps {
+        //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        echo 'login'
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'docker push ricti/maven'
+        echo 'push'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker logout'
+        echo 'logout'
+    }
+  }
 }
